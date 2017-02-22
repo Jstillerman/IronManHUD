@@ -1,50 +1,33 @@
 <template>
-  <v-app top-navbar>
-    <header>
-      <v-toolbar>
-        <v-toolbar-logo>IronMan HUD</v-toolbar-logo>
-        <v-toolbar-items>
-          <v-toolbar-item v-for='item in toolbarItems'>
-            <router-link>{{ item.text }}</p>
-          </v-toolbar-item>
-
-        </v-toolbar-items>
-      </v-toolbar>
-    </header>
-    <main>
-      <v-content>
-        <v-container fluid>
-          <div id="getting-started">
-            <v-card class="secondary">
-              <v-card-text class="text-xs-center">
-                <img src="public/v.png">
-              </v-card-text>
-            </v-card>
-            <h2 class="primary--text">{{ question.question }}</h2>
-            <div class="intro">
-              <v-list>
-
-                <v-list-item v-for='answer in question.answers'>
-                  <v-list-tile target="_blank">
-                    <v-button @click="select(answer)">{{answer}}</button>
-                  </v-list-tile>
-                </v-list-item>
-
-              </v-list>
-            </div>
-          </div>
-        </v-container>
-      </v-content>
-    </main>
-  </v-app>
+  <v-app id="example-1" top-toolbar footer>
+  <v-toolbar>
+    <v-toolbar-title>IronMan HUD</v-toolbar-title>
+  </v-toolbar>
+  <main>
+    <v-content>
+      <v-container>
+        <h1 primary>Here are some questions</h1>
+        <div v-for="question in questions">
+          <v-card>
+            <v-card-text>
+              <div>{{ question.question }}</div>
+            </v-card-text>
+          </v-card>
+          <v-card class="blue darken-1 white--text">
+            <v-card-text>
+              <v-btn v-for="answer in question.answers" primary dark ripple>{{ answer }}</v-btn>
+            </v-card-text>
+          </v-card>
+          <br>
+        </div>
+      </v-container>
+    </v-content>
+  </main>
+  <v-footer>Footer</v-footer>
+</v-app>
 </template>
 
 <script>
-  const questions = [
-    {question: 'Do you remember your dream?', answers: ['Yes', 'No', 'Kinda']},
-    {question: 'Is today going to be a good day?', answers: ['Yes', 'No', 'I don\'t know']},
-    {question: 'Which one of these people do you most want to spend time with today?', answers: ['Tariq', 'Packy', 'Jiro', 'Lily', 'Julian']}
-  ]
 
   var index = 0
 
@@ -54,14 +37,18 @@
         item: {
           text: 'Get Started'
         },
-        toolbarItems: [{text: 'Add Questions'}, {text: 'View Data'}],
-        question: questions[index = 0]
+        questions: [
+          {question: 'Do you remember your dream?', answers: ['Yes', 'No', 'Kinda']},
+          {question: 'Is today going to be a good day?', answers: ['Yes', 'No', 'I don\'t know']},
+          {question: 'Which one of these people do you most want to spend time with today?', answers: ['Tariq', 'Packy', 'Jiro', 'Lily', 'Julian']}
+        ],
+        toolbarItems: [{text: 'Add Questions'}, {text: 'View Data'}]
       }
     },
     methods: {
       select (answer) {
         //talk to server
-        this.question = questions[++index]
+
       }
     }
   }
